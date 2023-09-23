@@ -59,3 +59,5 @@ def op2():
     ax.set_ylabel('Quantidade de casos') # Y = Qtd de casos
     ax.legend() # Ativando a legenda do gráfico
     plt.show() # mostrando o gráfico
+
+    
