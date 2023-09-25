@@ -2,15 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import operator
 
-"""
-print("[1] Grafico de acordo com os anos no Brasil.")
-print("[2] Grafico de acordo com os anos no Mundo.")
-print("[3] 5 tipos que afetaram mais e menos no país escolhido.")
-print("[4] O tipo com mais ocorrência no mundo inteiro em todos os anos.")
-print("[5] Sair.")
-resp = int(input("Escolha: "))
-"""
-
 # Importando o dataset
 df = pd.read_csv("Dataset.csv", encoding="UTF-8")
 
@@ -41,11 +32,6 @@ def op1():
     ax.legend() # Ativando a legenda do gráfico
     plt.show() # mostrando o gráfico
 
-
-
-
-
-
 def op2():
     
     fig, ax = plt.subplots() # Iniciando o figure e o gráfico à ser programado
@@ -67,13 +53,9 @@ def op2():
 
 df_cancer = df.drop('Code', axis=1)
 
-
-
-
-
-
 def op3(pais = 'Brazil', ano = 1990, td_pais = False) :
     anos = [x for x in range(1990, 2017)]
+
     for k, v in enumerate(anos):
         if ano == v:
             ano = k
@@ -106,7 +88,6 @@ def op3(pais = 'Brazil', ano = 1990, td_pais = False) :
         if v == maior:
             return k if td_pais  else printa3(valores, colunas)
 
-
 def op4(pais=[]):
     
     todos_paises = df['Country'].drop_duplicates().reset_index().drop(['index'], axis=1)
@@ -118,19 +99,15 @@ def op4(pais=[]):
         
     anos = [x for x in range(1990, 2017)]
     cancer = {}
-        
+
     for p in paises:
-        print(p)
         for ano in anos:
             nome = op3(p, ano, True)
             if nome not in cancer:
                 cancer[nome] = 1
             else:
                 cancer[nome] += 1
-                
     return print(max(cancer.items(), key=operator.itemgetter(1))[0])
-
-
 
 def printa3(valores, colunas):
     fig, ax = plt.subplots()
@@ -151,5 +128,24 @@ def printa3(valores, colunas):
     ab.set_title('5 Menores')
     plt.show()
 
+while True:
+    print("[1] Grafico de acordo com os anos no Brasil.")
+    print("[2] Grafico de acordo com os anos no Mundo.")
+    print("[3] 5 tipos que afetaram mais e menos no país escolhido.")
+    print("[4] O tipo com mais ocorrência no mundo inteiro ou no país escolhido em todos os anos.")
+    print("[5] Sair.")
+    resp = int(input("Escolha: "))
 
-op4()
+    if resp == 1:
+        op1()
+    if resp == 2:
+        op2()
+    if resp == 3:
+        ano = int(input("Ano em questão: "))
+        pais = input("País em questão: ")
+        op3(pais, ano)
+    if resp == 4:
+        pais = input("Pressione enter se quiser do mundo inteiro, ou o país em questão: ").split()
+        op4(pais)
+    if resp == 5:
+        break
